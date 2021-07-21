@@ -89,7 +89,7 @@ public class BluetoothScanner {
             Thread.sleep(500);
         }
 
-        System.out.println("MAc adresse: " + hc05device.getBluetoothAddress());
+        System.out.println("MAC adresse: " + hc05device.getBluetoothAddress());
 
         hc05Url = "btspp://98D371FD49C6:1;authenticate=false;encrypt=false;master=false"; //TODO
         return  hc05Url;

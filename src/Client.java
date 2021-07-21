@@ -1,24 +1,18 @@
 import javax.bluetooth.*;
 import javax.microedition.io.Connector;
 import javax.microedition.io.StreamConnection;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 
 public class Client {
-    //private RemoteDevice hc05device;
     private String clientUrl;
-    //private int hc05id;
     private StreamConnection streamConnection;
     private OutputStream os;
     private InputStream is;
 
-    public Client(RemoteDevice hc05device, String hc05Url, int hc05id) {
-        //this.hc05device = hc05device;
-        this.clientUrl = hc05Url;
-        //this.hc05id = hc05id;
-    }
 
     public Client(String hc05Url) {
         this.clientUrl = hc05Url;
@@ -37,22 +31,45 @@ public class Client {
     }
 
     public void sentToDevice(String payload) throws IOException {
-        os.write(payload.getBytes());
+        payload= "#"+payload.getBytes(StandardCharsets.UTF_8).length + "|" +payload;
+        byte [] bytes = payload.getBytes(StandardCharsets.UTF_8);
+        for(int i=0 ; i<bytes.length; i++) {
+            os.write(bytes[i]);
+        }
     }
-    public void readFromDevice() throws IOException { //TODO: Rework
-        int i =0;
-        byte [] bytes = new byte[500];
+    public String readFromDevice() throws IOException { //TODO: Rework
+        byte [] initBytes = new byte[8];
+        byte [] tmp = new byte[1];
+        boolean msgNotStarted = true;
+        while(msgNotStarted){
+            is.read(tmp,0 ,1);
+            String input = new String(tmp, StandardCharsets.UTF_8);
+            if(input.equals("#"))
+            msgNotStarted = false;
+        }
+        for (int i=0; i<8 ; i++){
+            is.read(tmp,0 ,1);
+            String input = new String(tmp, StandardCharsets.UTF_8);
+            if(input.equals("|"))
+                break;
+            initBytes[i]=tmp[0];
+        }
 
-
-        while (i<500) {
-
-            is.read(bytes);
-            String s = new String(bytes, StandardCharsets.UTF_8);
-            System.out.println (s);
-
-            System.out.println(i);
-            i++;
+        String input = new String(initBytes, StandardCharsets.UTF_8);
+        for (int i=0; i<8; i++){
+            if (input.charAt(i) == '\0') {
+                input = input.substring(0, i);
+                break;
+            }
 
         }
+        int numberRecicveBytes = Integer.parseInt(input);
+
+        byte [] payloadBytes = new byte[numberRecicveBytes];
+        for(int i=0; i<numberRecicveBytes; i++){
+            is.read(tmp,0 ,1);
+            payloadBytes[i]=tmp[0];
+        }
+        return new String(payloadBytes, StandardCharsets.UTF_8);
     }
 }
