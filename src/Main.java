@@ -7,7 +7,7 @@ public class Main {
 
         String board1 = "btspp://98D361FD57F8:1;authenticate=false;encrypt=false;master=false";
         //Sascha's Board
-        String board3 = "btspp://98D371FD49C6:1;authenticate=false;encrypt=false;master=false"
+        String board3 = "btspp://98D371FD49C6:1;authenticate=false;encrypt=false;master=false";
 
 
         /*Client client1 = new Client(BluetoothScanner.scanForDeviceByIdentifier("HC.*"));
@@ -16,7 +16,8 @@ public class Main {
         client1.readFromDevice();
         client1.closeClientConnection();
         */
-        Client client2 = new Client(board3);
+
+        Client client2 = new Client(board1);
         client2.initClientConnection();
         client2.sentToDevice("Hello World");
         System.out.println(client2.readFromDevice());
