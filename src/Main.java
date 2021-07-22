@@ -17,7 +17,7 @@ public class Main {
         client1.closeClientConnection();
         */
 
-        Client client2 = new Client(board3);
+        Client client2 = new Client(board1);
         client2.initClientConnection();
         client2.sentToDevice("Hello World");
         System.out.println(client2.readFromDevice());
