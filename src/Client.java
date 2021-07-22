@@ -37,7 +37,8 @@ public class Client {
             os.write(bytes[i]);
         }
     }
-    public String readFromDevice() throws IOException { //TODO: Rework
+    public String readFromDevice() throws IOException {
+        this.sentToDevice("/sent");
         byte [] initBytes = new byte[8];
         byte [] tmp = new byte[1];
         boolean msgNotStarted = true;
@@ -63,10 +64,10 @@ public class Client {
             }
 
         }
-        int numberRecicveBytes = Integer.parseInt(input);
+        int numberReceiveBytes = Integer.parseInt(input);
 
-        byte [] payloadBytes = new byte[numberRecicveBytes];
-        for(int i=0; i<numberRecicveBytes; i++){
+        byte [] payloadBytes = new byte[numberReceiveBytes];
+        for(int i=0; i<numberReceiveBytes; i++){
             is.read(tmp,0 ,1);
             payloadBytes[i]=tmp[0];
         }
