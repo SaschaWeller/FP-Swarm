@@ -18,16 +18,18 @@ public class Main {
         */
 
 
-        Client client2 = new Client(board1);
-        client2.initClientConnection();
-        client2.sentToDevice("Hello World longer Tesdzdfgdsafkljasdlkfjölaskdjfklöjadlökfjlkasjdf dfj aslökdfjklöasdjflösaf");
-        System.out.println("receive board1: " + client2.readFromDevice());
-        client2.closeClientConnection();
+//        Client client2 = new Client(board1);
+//        client2.initClientConnection();
+//        client2.sentToDevice("Hello World longer Tesdzdfgdsafkljasdlkfjölaskdjfklöjadlökfjlkasjdf dfj aslökdfjklöasdjflösaf");
+//        System.out.println("receive board1: " + client2.readFromDevice());
+//        client2.closeClientConnection();
 
 
         Client client = new Client(board2);
         client.initClientConnection();
-        client.sentToDevice("Hello World longer Tesdzdfgdsafkljasdlkfjölaskdjfkdlökfjlkasjdf dfj aslökdfjklöasdjfl     ösaf");
+        System.out.println("Send start");
+        client.sentToDevice("m");
+        System.out.println("send end");
         System.out.println("receive board2: " + client.readFromDevice());
         client.closeClientConnection();
 
