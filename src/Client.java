@@ -42,15 +42,21 @@ public class Client {
         byte [] initBytes = new byte[8];
         byte [] tmp = new byte[1];
         boolean msgNotStarted = true;
+
         while(msgNotStarted){
             is.read(tmp,0 ,1);
             String input = new String(tmp, StandardCharsets.UTF_8);
             if(input.equals("#"))
             msgNotStarted = false;
+
         }
+
+
+
         for (int i=0; i<8 ; i++){
             is.read(tmp,0 ,1);
             String input = new String(tmp, StandardCharsets.UTF_8);
+
             if(input.equals("|"))
                 break;
             initBytes[i]=tmp[0];
