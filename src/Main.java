@@ -15,7 +15,7 @@ public class Main {
         client1.sentToDevice("Hello World");
         client1.readFromDevice();
         client1.closeClientConnection();
-        //lol
+        //lola
         */
 
 
