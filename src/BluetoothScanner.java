@@ -53,7 +53,7 @@ public class BluetoothScanner {
 
         String connectionURL = LocalDevice.getLocalDevice().getDiscoveryAgent().selectService(uuid, ServiceRecord.NOAUTHENTICATE_NOENCRYPT, false);
 
-        System.out.println("con URL" + connectionURL);
+        //System.out.println("con URL" + connectionURL);
 
 
         LocalDevice.getLocalDevice().getDiscoveryAgent().searchServices(attrIDs, searchUuidSet,
@@ -74,8 +74,9 @@ public class BluetoothScanner {
                     @Override
                     public void servicesDiscovered(int transID, ServiceRecord[] servRecord) {
                         for (int i = 0; i < servRecord.length; i++) {
-                            System.out.println(servRecord[i].getConnectionURL(ServiceRecord.NOAUTHENTICATE_NOENCRYPT, false));
+                            //System.out.println(servRecord[i].getConnectionURL(ServiceRecord.NOAUTHENTICATE_NOENCRYPT, false));
                             hc05Url = servRecord[i].getConnectionURL(ServiceRecord.NOAUTHENTICATE_NOENCRYPT, false);
+                            //System.out.println("-----" + hc05Url);
                             if (hc05Url != null) {
                                 scanFinished = true;
                                 break; //take the first one
@@ -90,8 +91,8 @@ public class BluetoothScanner {
         }
 
         System.out.println("MAC adresse: " + hc05device.getBluetoothAddress());
-
-        hc05Url = "btspp://98D371FD49C6:1;authenticate=false;encrypt=false;master=false"; //TODO
+        System.out.println("Bluetooth adress: " + hc05Url);
+        //hc05Url = "btspp://98D371FD49C6:1;authenticate=false;encrypt=false;master=false"; //TODO
         return  hc05Url;
     }
 }
