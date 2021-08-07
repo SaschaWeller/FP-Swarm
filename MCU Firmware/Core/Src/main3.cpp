@@ -482,7 +482,7 @@ int main(void)
 	    		  endresult= *max_element(mod.begin(),mod.end());
 
 	    		  //Send endresult (optional weights for federated learning)
-	    		 // send(endresult);
+	    		  send((char *) endresult);
 	    		 // send(endresult);
 	    	  }
 
