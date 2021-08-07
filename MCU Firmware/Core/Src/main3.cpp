@@ -102,7 +102,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
   // More Jan Code ________________________
 
 
-  int send (char * txData){
+  int send (const char * txData){
   //
   int bytesToSend =10+strlen(txData);
   char send[500];
