@@ -69,7 +69,7 @@ char buffer_rx[100];
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_DMA_Init(void);
+
 static void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
@@ -186,8 +186,58 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 	i=i+1;
 	}
 
+
   	return 1;
   }
+
+
+
+  void receievCPP(char * arg){
+	char txData[100];
+    while (1){
+  	HAL_UART_Receive(&huart2,(uint8_t *) buffer_rx,1,1000);
+  	if (buffer_rx[0]== (uint8_t) '#')
+  		{
+  		break;
+  		}
+
+  	}
+
+  	//check for payload length
+  	int j=0;
+  	char msglen [8];
+  	while (1){
+  	HAL_UART_Receive(&huart2,(uint8_t *) buffer_rx,1,1000);
+  	if (buffer_rx[0]== (uint8_t) '|')
+  		{
+  		break;
+  		}
+  	msglen[j]=buffer_rx[0];
+  	j= j+1;
+  	}
+
+  	int msglength=0;
+  	sscanf (msglen, "%d", &msglength);
+
+  	//Check for unuseful |
+  	//HAL_UART_Receive(&huart2,buffer_rx,1,1000);
+
+  	//receive payload
+  	HAL_UART_Receive(&huart2,(uint8_t *) buffer_rx,msglength,1000);
+
+
+  	 int i =0;
+  	while (i<msglength){
+  	txData[i]= (uint8_t) buffer_rx[i];
+  	//buffer_rx[i]=NULL;
+  	i=i+1;
+  	}
+
+
+    	strcpy( arg,buffer_rx);
+    }
+
+
 
 
 
@@ -376,6 +426,7 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
 
+
   //Ben
     /* USER CODE BEGIN 2 */
 
@@ -416,6 +467,8 @@ int main(void)
 
         Table obstable;
         table.attrName=obsattrName;
+
+
         table.data=obsdata;
         table.attrValueList=obsattrValueList;
 
@@ -424,7 +477,7 @@ int main(void)
 
 
         //This bool will decide whether the drone is the master drone
-        bool master = true;
+        bool master = false;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -445,6 +498,27 @@ int main(void)
 
 	    	  //Send results of classification to master
 	    	  if(!master){
+	    		  //Check if send request is receive from master
+	    		  bool equalsRequestCharacter=true;
+	    		  while (1){
+					  char txData[100];
+					  receievCPP(txData);
+					  //send(txData);
+
+					  equalsRequestCharacter =true;
+					  char right[]="/sent";
+					  int i;
+					  for (i=0;i<4;i++){
+						  if (txData[i]!=right[i]){
+							equalsRequestCharacter=false;
+							break;
+						  }
+					  }
+					  if (equalsRequestCharacter){
+						  break;
+					  }
+	    		  }
+	    		 // sending to master approved
 	    		send(TableToString(res));
 	    	  }
 
@@ -553,7 +627,7 @@ static void MX_USART2_UART_Init(void)
 
   /* USER CODE END USART2_Init 1 */
   huart2.Instance = USART2;
-  huart2.Init.BaudRate = 115200;
+  huart2.Init.BaudRate = 38400;
   huart2.Init.WordLength = UART_WORDLENGTH_8B;
   huart2.Init.StopBits = UART_STOPBITS_1;
   huart2.Init.Parity = UART_PARITY_NONE;
@@ -584,10 +658,10 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOD, LD12_Pin|LD13_Pin|LD14_Pin|LD15_Pin, GPIO_PIN_RESET);
+
 
   /*Configure GPIO pins : LD12_Pin LD13_Pin LD14_Pin LD15_Pin */
-  GPIO_InitStruct.Pin = LD12_Pin|LD13_Pin|LD14_Pin|LD15_Pin;
+
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
