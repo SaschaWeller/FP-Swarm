@@ -1,0 +1,10 @@
+22:28:00 **** Incremental Build of configuration Debug for project fpswarm_ide ****
+make -j4 all 
+arm-none-eabi-size   fpswarm_ide.elf 
+   text	   data	    bss	    dec	    hex	filename
+ 223488	    776	   8284	 232548	  38c64	fpswarm_ide.elf
+Finished building: default.size.stdout
+ 
+
+22:28:00 Build Finished. 0 errors, 0 warnings. (took 295ms)
+
