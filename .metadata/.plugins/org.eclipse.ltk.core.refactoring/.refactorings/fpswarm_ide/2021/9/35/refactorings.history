@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;fpswarm_ide/Core/Src/main3.cpp&apos; to &apos;main3.txt&apos;" description="Rename resource &apos;main3.cpp&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Core/Src/main3.cpp" name="main3.txt" stamp="1630482712798" updateReferences="true"/>
+</session>

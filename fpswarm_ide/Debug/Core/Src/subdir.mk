@@ -14,7 +14,7 @@ C_SRCS += \
 CPP_SRCS += \
 ../Core/Src/com.cpp \
 ../Core/Src/decisiontree.cpp \
-../Core/Src/main3.cpp 
+../Core/Src/main4.cpp 
 
 C_DEPS += \
 ./Core/Src/stm32f4xx_hal_msp.d \
@@ -26,7 +26,7 @@ C_DEPS += \
 OBJS += \
 ./Core/Src/com.o \
 ./Core/Src/decisiontree.o \
-./Core/Src/main3.o \
+./Core/Src/main4.o \
 ./Core/Src/stm32f4xx_hal_msp.o \
 ./Core/Src/stm32f4xx_it.o \
 ./Core/Src/syscalls.o \
@@ -36,7 +36,7 @@ OBJS += \
 CPP_DEPS += \
 ./Core/Src/com.d \
 ./Core/Src/decisiontree.d \
-./Core/Src/main3.d 
+./Core/Src/main4.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

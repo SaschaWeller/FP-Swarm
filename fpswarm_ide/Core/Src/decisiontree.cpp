@@ -8,14 +8,14 @@ using namespace std;
 
 class Table {
 	public:
-		vector<string> attrName;
-		vector<vector<string> > data;
+		vector<int> attrName;
+		vector<vector<int> > data;
 
-		vector<vector<string> > attrValueList;
+		vector<vector<int> > attrValueList;
 		void extractAttrValue() {
 			attrValueList.resize(attrName.size());
 			for(int j=0; j<attrName.size(); j++) {
-				map<string, int> value;
+				map<int, int> value;
 				for(int i=0; i<data.size(); i++) {
 					value[data[i][j]]=1;
 				}
@@ -30,11 +30,11 @@ class Table {
 class Node {
 	public:
 		int criteriaAttrIndex;
-		string attrValue;
+		int attrValue;
 
 		int treeIndex;
 		bool isLeaf;
-		string label;
+		int label;
 
 		vector<int > children;
 
@@ -56,22 +56,22 @@ class DecisionTree {
 			root.treeIndex=0;
 			tree.push_back(root);
 			run(initialTable, 0);
-			printTree(0, "");
+			//printTree(0, "");
 
 			cout<< "<-- finish generating decision tree -->" << endl << endl;
 		}
 
-		string guess(vector<string> row) {
-			string label = "";
+		int guess(vector<int> row) {
+			int label = 0;
 			int leafNode = dfs(row, 0);
 			if(leafNode == -1) {
-				return "dfs failed";
+				return -1;
 			}
 			label = tree[leafNode].label;
 			return label;
 		}
 
-		int dfs(vector<string>& row, int here) {
+		int dfs(vector<int>& row, int here) {
 			if(tree[here].isLeaf) {
 				return here;
 			}
@@ -97,14 +97,14 @@ class DecisionTree {
 
 			int selectedAttrIndex = getSelectedAttribute(table);
 
-			map<string, vector<int> > attrValueMap;
+			map<int, vector<int> > attrValueMap;
 			for(int i=0;i<table.data.size();i++) {
 				attrValueMap[table.data[i][selectedAttrIndex]].push_back(i);
 			}
 
 			tree[nodeIndex].criteriaAttrIndex = selectedAttrIndex;
 
-			pair<string, int> majority = getMajorityLabel(table);
+			pair<int, int> majority = getMajorityLabel(table);
 			if((double)majority.second/table.data.size() > 0.8) {
 				tree[nodeIndex].isLeaf = true;
 				tree[nodeIndex].label = majority.first;
@@ -112,7 +112,7 @@ class DecisionTree {
 			}
 
 			for(int i=0;i< initialTable.attrValueList[selectedAttrIndex].size(); i++) {
-				string attrValue = initialTable.attrValueList[selectedAttrIndex][i];
+				int attrValue = initialTable.attrValueList[selectedAttrIndex][i];
 
 				Table nextTable;
 				vector<int> candi = attrValueMap[attrValue];
@@ -146,11 +146,11 @@ class DecisionTree {
 			return (f+z*z/(2*N)+z*sqrt(f/N-f*f/N+z*z/(4*N*N)))/(1+z*z/N);
 		}
 
-		pair<string, int> getMajorityLabel(Table table) {
-			string majorLabel = "";
+		pair<int, int> getMajorityLabel(Table table) {
+			int majorLabel = 00;
 			int majorCount = 0;
 
-			map<string, int> labelCount;
+			map<int, int> labelCount;
 			for(int i=0;i< table.data.size(); i++) {
 				labelCount[table.data[i].back()]++;
 
@@ -196,7 +196,7 @@ class DecisionTree {
 			double ret = 0.0;
 
 			int itemCount = (int)table.data.size();
-			map<string, int> labelCount;
+			map<int, int> labelCount;
 
 			for(int i=0;i<table.data.size();i++) {
 				labelCount[table.data[i].back()]++;
@@ -215,7 +215,7 @@ class DecisionTree {
 			double ret = 0.0;
 			int itemCount = (int)table.data.size();
 
-			map<string, vector<int> > attrValueMap;
+			map<int, vector<int> > attrValueMap;
 			for(int i=0;i<table.data.size();i++) {
 				attrValueMap[table.data[i][attrIndex]].push_back(i);
 			}
@@ -242,7 +242,7 @@ class DecisionTree {
 
 			int itemCount = (int)table.data.size();
 
-			map<string, vector<int> > attrValueMap;
+			map<int, vector<int> > attrValueMap;
 			for(int i=0;i<table.data.size();i++) {
 				attrValueMap[table.data[i][attrIndex]].push_back(i);
 			}
@@ -264,107 +264,23 @@ class DecisionTree {
 		/*
 		 * Enumerates through all the nodes of the tree and prints all the branches
 		 */
-		void printTree(int nodeIndex, string branch) {
-			if (tree[nodeIndex].isLeaf == true)
-				cout << branch << "Label: " << tree[nodeIndex].label << "\n";
 
-			for(int i = 0; i < tree[nodeIndex].children.size(); i++) {
-				int childIndex = tree[nodeIndex].children[i];
-
-				string attributeName = initialTable.attrName[tree[nodeIndex].criteriaAttrIndex];
-				string attributeValue = tree[childIndex].attrValue;
-
-				printTree(childIndex, branch + attributeName + " = " + attributeValue + ", ");
-			}
-		}
 };
 
 
-class InputReader {
-	private:
-		ifstream fin;
-		Table table;
-	public:
-		InputReader(string filename) {
-			fin.open(filename);
-			if(!fin) {
-				cout << filename << " file could not be opened\n";
-				exit(0);
-			}
-			parse();
-		}
-		void parse() {
-			string str;
-			bool isAttrName = true;
-			while(!getline(fin, str).eof()){
-				vector<string> row;
-				int pre = 0;
-				for(int i=0;i<str.size();i++){
-					if(str[i] == '\t') {
-						string col = str.substr(pre, i-pre);
 
-						row.push_back(col);
-						pre = i+1;
-					}
-				}
-				string col = str.substr(pre, str.size()-pre-1);
-				row.push_back(col);
-
-				if(isAttrName) {
-					table.attrName = row;
-					isAttrName = false;
-				} else {
-					table.data.push_back(row);
-				}
-			}
-		}
-		Table getTable() {
-			return table;
-		}
-};
-
-class OutputPrinter {
-	private:
-		ofstream fout;
-	public:
-		OutputPrinter(string filename) {
-			fout.open(filename);
-			if(!fout) {
-				cout << filename << " file could not be opened\n";
-				exit(0);
-			}
-		}
-
-		string joinByTab(vector<string> row) {
-			string ret = "";
-			for(int i=0; i< row.size(); i++) {
-				ret += row[i];
-				if(i != row.size() -1) {
-					ret += '\t';
-				}
-			}
-			return ret;
-		}
-
-		void addLine(string str) {
-			fout << str << endl;
-		}
-};
 /*
 int main(int argc, const char * argv[]) {
 	if(argc!=4) {
 		cout << "Please follow this format. dt.exe [train.txt] [test.txt] [result.txt]";
 		return 0;
 	}
-
 	string trainFileName = argv[1];
 	InputReader trainInputReader(trainFileName);
 	DecisionTree decisionTree(trainInputReader.getTable());
-
 	string testFileName = argv[2];
 	InputReader testInputReader(testFileName);
 	Table test = testInputReader.getTable();
-
 	string resultFileName = argv[3];
 	OutputPrinter outputPrinter(resultFileName);
 	outputPrinter.addLine(outputPrinter.joinByTab(test.attrName));
@@ -373,7 +289,6 @@ int main(int argc, const char * argv[]) {
 		result.push_back(decisionTree.guess(test.data[i]));
 		outputPrinter.addLine(outputPrinter.joinByTab(result));
 	}
-
 	/* for answer check */
 	/*
 	   InputReader answerInputReader("dt_answer1.txt");
@@ -387,7 +302,6 @@ int main(int argc, const char * argv[]) {
 	   }
 	   cout << "Accuracy: " << (double)hitCount/totalCount*100 << "%";
 	   cout << "(" << hitCount << "/" << totalCount << ")" << endl;
-
 	return 0;
 }
 */
