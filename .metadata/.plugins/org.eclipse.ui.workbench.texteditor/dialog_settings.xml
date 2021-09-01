@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="Baud"/>
+		<item key="selection" value="if("/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
-			<item value="re"/>
-			<item value="baud"/>
-			<item value="send("/>
-			<item value="master"/>
+			<item value="if("/>
+			<item value="receievCPP"/>
+			<item value="rece"/>
+			<item value="sprin"/>
+			<item value="hello"/>
+			<item value="hello7"/>
+			<item value="recei"/>
+			<item value="table"/>
+			<item value="std::string"/>
+			<item value="TableToString("/>
 			<item value="if(!"/>
-			<item value="if(1"/>
 			<item value="send"/>
-			<item value="TableToString"/>
-			<item value="HAL_In"/>
-			<item value="HAL_"/>
-			<item value="HAL"/>
-			<item value="hall"/>
-			<item value="to"/>
-			<item value="&quot;Hello"/>
-			<item value="Hello"/>
+			<item value="baud"/>
+			<item value="rate"/>
+			<item value="Table"/>
 		</list>
 		<list key="replacehistory">
+			<item value="char*"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
