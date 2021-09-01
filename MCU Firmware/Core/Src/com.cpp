@@ -8,14 +8,14 @@ using namespace std;
 
 class Table {
 	public:
-		vector<string> attrName;
-		vector<vector<string> > data;
+		vector<int> attrName;
+		vector<vector<int> > data;
 
-		vector<vector<string> > attrValueList;
+		vector<vector<int> > attrValueList;
 		void extractAttrValue() {
 			attrValueList.resize(attrName.size());
 			for(int j=0; j<attrName.size(); j++) {
-				map<string, int> value;
+				map<int, int> value;
 				for(int i=0; i<data.size(); i++) {
 					value[data[i][j]]=1;
 				}
