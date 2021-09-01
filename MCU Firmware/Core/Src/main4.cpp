@@ -194,162 +194,210 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 
 
   //Ben
-  char * TableToString(Table t1){
-	  char * attrName[] = {};
-	  char * data[] = {};
-	  char * attrValueList[] = {};
-
-	  int attrNameSize = t1.attrName.size();
-
-	  for(int i = 0; i < attrNameSize; i++){
-		  if(i==0){
-			  attrName = '0' + t1.attrName[0];
-		  }else{
-			  strcat(attrName, "#");
-			  strcat(attrName, '0' + t1.attrName[i]);
-		  }
-	  }
-
-	  for(int i = 0; i < t1.data.size(); i++){
-		  for(int a = 0; a < t1.data[i].size();a++){
-			  if(a == 0){
-				  strcat(data, '0' + t1.data[i][a]);
-			  }else{
-				  strcat(data, "#");
-				  strcat(data, '0' + t1.data[i][a]);
-			  }
-		  }
-		  if(i != t1.data.size()-1){
-			  strcat(data, "$");
-		  }
-	  }
-
-	  for(int i = 0; i < t1.attrValueList.size(); i++){
-	  		  for(int a = 0; a < t1.attrValueList[i].size();a++){
-	  			  if(a == 0){
-	  				strcat(attrValueList, '0' + t1.attrValueList[i][a]);
-	  			  }else{
-	  				strcat(attrValueList, "#");
-	  				strcat(attrValueList, '0' + t1.attrValueList[i][a]);
-	  			  }
-	  		  }
-	  		  if(i != t1.attrValueList.size()-1){
-	  			strcat(attrValueList, "$");
-	  		  }
-	  	  }
-
-	  char * final = attrName;
-	  strcat(final, "/");
-	  strcat(final, data);
-	  strcat(final, "/");
-	  trcat(final, attrValueList);
-
-	  //char* c = const_cast<char*>(final.c_str());
-
-	  return final;
-  }
 
 
-  void SplitStringH(char * s, vector<int> &v){
+/*  void SplitStringH(char* s, vector<char*> &v){
 
-  	char * temp = "";
-  	for(int i=0;i<strlen(s);++i){
+   	char* temp = "";
+   	for(int i=0;i<strlen(s);++i){
 
-  		if(s[i]=='#'){
-  			v.push_back(temp - '0');
-  			temp = "";
-  		}
-  		else{
-  			strcat(temp, s[i]);
-  		}
+   		if(s[i]=='#'){
+   			v.push_back(temp);
+   			temp = "";
+   		}
+   		else{
+   			temp.push_back(s[i]);
+   		}
 
-  	}
-  	v.push_back(temp - '0');
+   	}
+   	v.push_back(temp);
 
-  }
+   }
 
-  void SplitStringD(char * s, vector<int> &v){
+   void SplitStringD(char* s, vector<char*> &v){
 
-	  char * temp = "";
-    	for(int i=0;i<strlen(s);++i){
+     	char* temp = "";
+     	for(int i=0;i<s.length();++i){
 
-    		if(s[i]=='$'){
-    			v.push_back(temp - '0');
-    			temp = "";
-    		}
-    		else{
-    			strcat(temp, s[i]);
-    		}
+     		if(s[i]=='$'){
+     			v.push_back(temp);
+     			temp = "";
+     		}
+     		else{
+     			temp.push_back(s[i]);
+     		}
 
-    	}
-    	v.push_back(temp - '0');
+     	}
+     	v.push_back(temp);
 
-    }
+     }
 
-  void SplitStringS(char * s, vector<char *> &v){
+   void SplitStringS(char* s, vector<char*> &v){
 
-    	char * temp = "";
-    	for(int i=0;i<strlen(s);++i){
+     	char* temp = "";
+     	for(int i=0;i<s.length();++i){
 
-    		if(s[i]=='/'){
-    			v.push_back(temp);
-    			temp = "";
-    		}
-    		else{
-    			strcat(temp, s[i]);
-    		}
+     		if(s[i]=='/'){
+     			v.push_back(temp);
+     			temp = "";
+     		}
+     		else{
+     			temp.push_back(s[i]);
+     		}
 
-    	}
-    	v.push_back(temp);
+     	}
+     	v.push_back(temp);
 
-    }
+     }*/
+
+
+
+/*  Table StringToTable(char * s1){
+ 	  vector<string> input;
+
+ 	  //may be different depending on libraries
+ 	  //string slashString = str(s1);
+ 	  char* slashString(s1);
+
+ 	  SplitStringS(slashString,input);
+
+ 	  string attrName = input[0];
+ 	  string data = input[1];
+ 	  string attrValueList = input[2];
+
+ 	 vector<string> attrNamefinal;
+ 	 SplitStringH(attrName,attrNamefinal);
+
+
+
+ 	 vector<string> datafinal;
+ 	 SplitStringD(data,datafinal);
+
+ 	 vector<vector<string>> datafinalfinal;
+ 	 for(int i = 0; i< datafinal.size();i++){
+ 		 SplitStringH(datafinal[i],datafinalfinal[i]);
+ 	 }
+
+
+
+ 	 vector<string> attrValueListfinal;
+ 	 	 SplitStringD(attrValueList,attrValueListfinal);
+
+ 	 vector<vector<string>> attrValueListfinalfinal;
+ 	 for(int i = 0; i< attrValueListfinal.size();i++){
+ 	 	 SplitStringH(attrValueListfinal[i],attrValueListfinalfinal[i]);
+ 	 }
+
+ 	 Table tf;
+ 	       tf.attrName=attrNamefinal;
+ 	       tf.data=datafinalfinal;
+ 	       tf.attrValueList=attrValueListfinalfinal;
+
+
+ 	 return tf;
+   }*/
+
+
+
+  //Ben
+  //Test kommentar
+
+    void TableToString(Table t1, char * tableString){
+ 	  char attrName[1000]  = {};
+ 	  char data [1000] = {};
+ 	  char attrValueList [1000] = {};
+
+ 	  int attrNameSize = t1.attrName.size();
+
+ 	  for(int i = 0; i < attrNameSize; i++){
+ 		  if(i==0){
+
+ 			  sprintf(attrName, "%d", t1.attrName[0]);
+
+ 			  //attrName = '0'+ t1.attrName[0];
+ 		  }else{
+ 			  strcat(attrName,"#");
+
+ 			  char tmp [200];
+ 			  sprintf(tmp, "%d", t1.attrName[i]);
+ 			  strcat(attrName,tmp);
+
+
+ 		  }
+ 	  }
+
+ 	  for(int i = 0; i < t1.data.size(); i++){
+ 		  for(int a = 0; a < t1.data[i].size();a++){
+ 			  if(a == 0 && i==0){
+
+ 				  sprintf(data, "%d", t1.data[i][a]);
+
+ 				  //data.append(std::to_string(t1.data[i][a]));
+ 			  }else{
+
+ 				 strcat(data,"#");
+
+ 				 char tmp [200];
+ 				 sprintf(tmp, "%d", t1.data[i][a]);
+ 				 strcat(data,tmp);
+
+ 				  //data.append("#");
+ 				  //data.append(std::to_string(t1.data[i][a]));
+ 			  }
+ 		  }
+ 		  if(i != t1.data.size()-1){
+ 			  strcat(data,"$");
+ 			  //data.append("$");
+ 		  }
+ 	  }
+
+ 	  for(int i = 0; i < t1.attrValueList.size(); i++){
+ 	  		  for(int a = 0; a < t1.attrValueList[i].size();a++){
+ 	  			  if(a == 0 && i==0){
+ 	  				  sprintf(attrValueList, "%d", t1.attrValueList[i][a]);
+
+ 	  				 // data.append(std::to_string(t1.attrValueList[i][a]));
+ 	  			  }else{
+
+
+ 	  				  	strcat(attrValueList,"#");
+ 	  					char tmp [200];
+ 	  					sprintf(tmp, "%d", t1.attrValueList[i][a]);
+ 	  					strcat(attrValueList,tmp);
+
+ 	  				  //data.append("#");
+ 	  				  //data.append(std::to_string(t1.attrValueList[i][a]));
+ 	  			  }
+ 	  		  }
+ 	  		  if(i != t1.attrValueList.size()-1){
+ 	  			  strcat(attrValueList,"$");
+ 	  			  //data.append("$");
+ 	  		  }
+ 	  	  }
+
+
+ 	  strcat(tableString, attrName);
+ 	 strcat(tableString,"/");
+ 	  strcat(tableString,data);
+ 	 strcat(tableString,"/");
+ 	  strcat(tableString,attrValueList);
+ 	/*  final.append("/");
+ 	  final.append(data);
+ 	  final.append("/");
+ 	  final.append(attrValueList);*/
+
+ 	  //Char* c = const_cast<char*>(final.c_str());
+
+
+
+   }
+
 
 //interne trennung # - extern $
-  Table StringToTable(char * s1){
-	  vector<char *> input;
-
-	  //may be different depending on libraries
-	  //string slashString = str(s1);
-	  //std::int slashString(s1);
-
-	  SplitStringS(slashString,input);
-
-	  char * attrName = input[0];
-	  char * data = input[1];
-	  char * attrValueList = input[2];
-
-	 vector<int> attrNamefinal;
-	 SplitStringH(attrName,attrNamefinal);
 
 
 
-	 vector<int> datafinal;
-	 SplitStringD(data,datafinal);
 
-	 vector<vector<int>> datafinalfinal;
-	 for(int i = 0; i< datafinal.size();i++){
-		 SplitStringH(datafinal[i],datafinalfinal[i]);
-	 }
-
-
-
-	 vector<int> attrValueListfinal;
-	 	 SplitStringD(attrValueList,attrValueListfinal);
-
-	 vector<vector<int>> attrValueListfinalfinal;
-	 for(int i = 0; i< attrValueListfinal.size();i++){
-	 	 SplitStringH(attrValueListfinal[i],attrValueListfinalfinal[i]);
-	 }
-
-	 Table tf;
-	       tf.attrName=attrNamefinal;
-	       tf.data=datafinalfinal;
-	       tf.attrValueList=attrValueListfinalfinal;
-
-
-	 return tf;
-  }
-*/
 int main(void)
 {
   /* USER CODE BEGIN 1 */
@@ -388,7 +436,7 @@ int main(void)
 
         //examples - need to be adjusted
         attrName = {1,2,3,4,5};
-        data = {{0,0,1,1,69},
+        data = {{2,2,1,1,69},
       		  {1,0,0,1,69},
       		  {0,0,0,0,88}};
 
@@ -423,11 +471,11 @@ int main(void)
 
 
         Table res;
-
+        res.attrName=attrName;
 
 
         //This bool will decide whether the drone is the master drone
-        bool master = true;
+        bool master = false;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -448,7 +496,10 @@ int main(void)
 
 	    	  //Send results of classification to master
 	    	  if(!master){
-	    	//	send(TableToString(res));
+	    		  char  a[6000];
+	    		  TableToString(table, a);
+	    		  send(a);
+
 	    	  }
 
 	    	  //Wait
@@ -602,10 +653,10 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOD, LD12_Pin|LD13_Pin|LD14_Pin|LD15_Pin, GPIO_PIN_RESET);
+
 
   /*Configure GPIO pins : LD12_Pin LD13_Pin LD14_Pin LD15_Pin */
-  GPIO_InitStruct.Pin = LD12_Pin|LD13_Pin|LD14_Pin|LD15_Pin;
+
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
