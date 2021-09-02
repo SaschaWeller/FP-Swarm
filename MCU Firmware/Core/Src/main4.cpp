@@ -142,7 +142,50 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 
 
 
+  void receievCPP(char * arg){
+  	char txData[100];
+      while (1){
+    	HAL_UART_Receive(&huart2,(uint8_t *) buffer_rx,1,1000);
+    	if (buffer_rx[0]== (uint8_t) '#')
+    		{
+    		break;
+    		}
 
+    	}
+
+    	//check for payload length
+    	int j=0;
+    	char msglen [8];
+    	while (1){
+    	HAL_UART_Receive(&huart2,(uint8_t *) buffer_rx,1,1000);
+    	if (buffer_rx[0]== (uint8_t) '|')
+    		{
+    		break;
+    		}
+    	msglen[j]=buffer_rx[0];
+    	j= j+1;
+    	}
+
+    	int msglength=0;
+    	sscanf (msglen, "%d", &msglength);
+
+    	//Check for unuseful |
+    	//HAL_UART_Receive(&huart2,buffer_rx,1,1000);
+
+    	//receive payload
+    	HAL_UART_Receive(&huart2,(uint8_t *) buffer_rx,msglength,1000);
+
+
+    	 int i =0;
+    	while (i<msglength){
+    	txData[i]= (uint8_t) buffer_rx[i];
+    	//buffer_rx[i]=NULL;
+    	i=i+1;
+    	}
+
+
+      	strcpy( arg,buffer_rx);
+      }
 
 
 
@@ -498,6 +541,27 @@ int main(void)
 	    	  if(!master){
 	    		  char  a[6000];
 	    		  TableToString(table, a);
+
+	    		  bool equalsRequestCharacter=true;
+	    		  	 while (1){
+	    		  		char txData[100];
+	    		  		receievCPP(txData);
+	    		  		 //send(txData);
+
+	    		  		equalsRequestCharacter =true;
+	    		  		char right[]="/sent";
+	    		  		int i;
+	    		  		for (i=0;i<4;i++){
+	    		  			if (txData[i]!=right[i]){
+	    		  				equalsRequestCharacter=false;
+	    		  				break;
+	    		  			}
+	    		  		}
+	    		  		if (equalsRequestCharacter){
+	    		  			break;
+	    		  		}
+	    		  	}
+
 	    		  send(a);
 
 	    	  }
