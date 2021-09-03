@@ -134,7 +134,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 
   //Union length of payload and payload, send it
   //strcat (send, txData);
-  send[0]='p';
+
   HAL_UART_Transmit(&huart2, (uint8_t *)  send, strlen(send),400);
   return 1;
 
