@@ -6,23 +6,17 @@ public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
 
         //init drones and conections
-        String board1 = "btspp://98D361FD57F8:1;authenticate=false;encrypt=false;master=false"; // Jan 1
-        String board2 = "btspp://98D311FC1B55:1;authenticate=false;encrypt=false;master=false"; // Jan 2
-        String board3 = "btspp://98D371FD49C6:1;authenticate=false;encrypt=false;master=false"; // Sascha 1
-
+        /*
+            Here an example if you want to hardcode the boardadresses:
+            String board1 = "btspp://98D361FD57F8:1;authenticate=false;encrypt=false;master=false";
+            Client client1 = new Client(board1);
+        */
         LinkedList<Client> allDrones = new LinkedList<Client>();
 
-        Client client1 = new Client(board1);
+        Client client1 = new Client(BluetoothScanner.scanForDeviceByIdentifier("HC.*"));
         client1.initClientConnection();
         allDrones.add(client1);
 
-        Client client2 = new Client(board2);
-        client2.initClientConnection();
-        allDrones.add(client2);
-
-        Client client3 = new Client(board3);
-        client2.initClientConnection();
-        allDrones.add(client3);
         
         //init ML-Algo
         LinkedList<String> droneResults = new LinkedList<String>();
@@ -63,25 +57,8 @@ public class Main {
             client.closeClientConnection();
             allDrones.remove(client);
         }
-
-
-/*      Here two comlete conections for exampel:
-
-        Client client1 = new Client(BluetoothScanner.scanForDeviceByIdentifier("HC.*"));
-        client1.initClientConnection();
-        client1.sentToDevice("Hello World");
-        System.out.println(client1.readFromDevice());
-        client1.closeClientConnection();
-
-
-        Client client2 = new Client(board3);
-        client2.initClientConnection();
-        client2.sentToDevice("Hello World");
-        System.out.println(client2.readFromDevice());
-        client2.closeClientConnection();
-*/
-
     }
+
     static HashMap<String, ArrayList<Integer>> stringsToMap(LinkedList<String> input){
         HashMap<String, ArrayList<Integer>> result = new HashMap<String, ArrayList<Integer>>();
 

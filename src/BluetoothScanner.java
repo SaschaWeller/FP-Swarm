@@ -15,7 +15,6 @@ public class BluetoothScanner {
                 try {
                     String name = btDevice.getFriendlyName(false);
                     System.out.format("%s (%s)\n", name, btDevice.getBluetoothAddress());
-                    //if (name.matches("HC.*")) {
                     if (name.matches(identifier)) {
                         hc05device = btDevice;
                         System.out.println("got it!");
@@ -39,7 +38,6 @@ public class BluetoothScanner {
             }
         });
         while (!scanFinished) {
-            //this is easier to understand (for me) as the thread stuff examples from bluecove
             Thread.sleep(500);
         }
 
@@ -74,13 +72,10 @@ public class BluetoothScanner {
                     @Override
                     public void servicesDiscovered(int transID, ServiceRecord[] servRecord) {
                         for (int i = 0; i < servRecord.length; i++) {
-                            //System.out.println(servRecord[i].getConnectionURL(ServiceRecord.NOAUTHENTICATE_NOENCRYPT, false));
                             hc05Url = servRecord[i].getConnectionURL(ServiceRecord.NOAUTHENTICATE_NOENCRYPT, false);
-                            //System.out.println("-----" + hc05Url);
                             if (hc05Url != null) {
                                 scanFinished = true;
                                 break; //take the first one
-
                             }
                         }
                     }
@@ -90,9 +85,6 @@ public class BluetoothScanner {
             Thread.sleep(500);
         }
 
-        System.out.println("MAC adresse: " + hc05device.getBluetoothAddress());
-        System.out.println("Bluetooth adress: " + hc05Url);
-        //hc05Url = "btspp://98D371FD49C6:1;authenticate=false;encrypt=false;master=false"; //TODO
         return  hc05Url;
     }
 }
