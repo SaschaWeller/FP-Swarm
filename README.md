@@ -16,7 +16,6 @@ The host is written in Java by unsing the Intellij IDEA.
 
 ## Deployment
 Host:
-
 The host is quite easy to deploy, just ad a suitable runconfiguration to Intellij and pair your host with the HC-05 via your systems Bluetooth configuration.
 
 Client:
