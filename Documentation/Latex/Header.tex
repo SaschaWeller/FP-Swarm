@@ -1,0 +1,50 @@
+\documentclass[bibliography=totoc, captions=tableheading, titlepage=firstiscover]{scrartcl} %Literatur im Inhaltsverzeichnis, Tabellenüberschrift, erste Seite Titelseite
+
+% Zahlen und Einheiten
+
+%\usepackage[version=4, math-greek=default, text-greek=default]{mhchem}% chemische Formeln
+\usepackage{xfrac}% schöne Brüche im Text
+\usepackage{scrhack} % Paket float verbessern
+\usepackage[aux]{rerunfilecheck} % Warnung, falls nochmal kompiliert werden muss
+
+\usepackage{amsmath} % unverzichtbare Mathe-Befehle
+\usepackage{mathtools} % Erweiterungen für amsmath
+\usepackage{amssymb} % viele Mathe-Symbole
+\usepackage{fontspec} % Fonteinstellungen
+% Latin Modern Fonts werden automatisch geladen 
+% Alternativ zum Beispiel:
+%\setromanfont{Libertinus Serif}
+% \setsansfont{Libertinus Sans}
+% \setmonofont{Libertinus Mono}
+
+% Wenn man andere Schriftarten gesetzt hat, sollte man das Seiten-Layout neu berechnen lassen
+\recalctypearea{}
+
+\usepackage[math-style=ISO, bold-style=ISO, sans-style=italic, nabla=upright, partial=upright, warnings-off={mathtools-colon, mathtools-overbracket}]{unicode-math}
+
+% traditionelle Fonts für Mathematik
+\setmathfont{Latin Modern Math}
+% Alternativ zum Beispiel:
+%\setmathfont{Libertinus Math}
+
+\setmathfont{XITS Math}[range={scr, bfscr}]
+\setmathfont{XITS Math}[range={cal, bfcal}, StylisticSet=1]
+
+\usepackage[autostyle]{csquotes} % richtige Anführungszeichen
+\usepackage{float} % Standardplatzierung für Floats einstellen
+\floatplacement{figure}{htbp}
+\floatplacement{table}{htbp}
+\usepackage[section, below]{placeins} % Floats innerhalb einer Section halten
+\usepackage{pdflscape} % Seite drehen für breite Tabellen: landscape Umgebung
+\usepackage[labelfont=bf, font=small, width=0.9\textwidth]{caption} % Captions schöner machen.
+\usepackage{subcaption} % subfigure, subtable, subref
+\usepackage{graphicx} % Grafiken können eingebunden werde
+\usepackage{booktabs} % schöne Tabellen
+\usepackage{microtype} % Verbesserungen am Schriftbild
+\usepackage[backend=biber]{biblatex} % Literaturverzeichnis
+\addbibresource{sample.bib} % Quellendatenbank
+%\addbibresource{programme.bib}
+\usepackage[german, unicode, pdfusetitle, pdfcreator={}, pdfproducer={}]{hyperref}
+\usepackage{bookmark} % erweiterte Bookmarks im PDF
+\usepackage[shortcuts]{extdash} % Trennung von Wörtern mit Strichen
+\usepackage{url}
