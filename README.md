@@ -31,4 +31,4 @@ GND connected to GND
 
 For the client IDE we recommend the "STM32 CubeIDE". After you import the Repo it should work fine. Connect each STM32 boards after another and flash the firmware. Connect the STM32 boards with power and press the black "Reset" buttons, after that start the Host.  
 
-
+There are some Testdate in "MCU Firmware/Core/Src/TestData/". Until now the data are hardcode, so you must copy the test main file in the main file and the flash each board again. 
