@@ -21,14 +21,11 @@ The host is quite easy to deploy, just ad a suitable runconfiguration to Intelli
 Client:
 The fist stepp in deployment is the wiring between the HC-05 and the STM:
 
-PA3 connected to TXD
-
-PA2 connected to RXD
-
-5V connected to VCC
-
-GND connected to GND
+- PA3 connected to TXD
+- PA2 connected to RXD
+- 5V connected to VCC
+- GND connected to GND
 
 For the client IDE we recommend the "STM32 CubeIDE". After you import the Repo it should work fine. Connect each STM32 boards after another and flash the firmware. Connect the STM32 boards with power and press the black "Reset" buttons, after that start the Host.  
 
-There are some Testdate in "MCU Firmware/Core/Src/TestData/". Until now the data are hardcode, so you must copy the test main file in the main file and then flash each board again. 
+There are some test data in "MCU Firmware/Core/Src/TestData/". Until now the data is hardcoded, so you must substitute the main file with the test-main file and then flash each board again. 
