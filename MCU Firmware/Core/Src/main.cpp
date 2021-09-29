@@ -100,7 +100,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 
 
 
-  // More Jan Code ________________________
+  
 
 
   int send (char * txData){
@@ -169,8 +169,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
     	int msglength=0;
     	sscanf (msglen, "%d", &msglength);
 
-    	//Check for unuseful |
-    	//HAL_UART_Receive(&huart2,buffer_rx,1,1000);
 
     	//receive payload
     	HAL_UART_Receive(&huart2,(uint8_t *) buffer_rx,msglength,1000);
@@ -217,8 +215,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 	int msglength=0;
 	sscanf (msglen, "%d", &msglength);
 
-	//Check for unuseful |
-	//HAL_UART_Receive(&huart2,buffer_rx,1,1000);
+	
 
 	//receive payload
 	HAL_UART_Receive(&huart2,(uint8_t *) buffer_rx,msglength,1000);
